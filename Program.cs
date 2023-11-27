@@ -1,4 +1,5 @@
 using EstudoAsp.NetIdentity.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,10 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<DataContext>(options => 
     options.UseSqlServer(connection));
+
+// Incluir o Idemtity no projeto
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<DataContext>();
 
 var app = builder.Build();
 
@@ -26,6 +31,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Midewares
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

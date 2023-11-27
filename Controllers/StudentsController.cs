@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EstudoAsp.NetIdentity.Data;
 using EstudoAsp.NetIdentity.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EstudoAsp.NetIdentity.Controllers
 {
+    [Authorize]
     public class StudentsController : Controller
     {
         private readonly DataContext _context;
